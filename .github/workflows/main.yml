@@ -1,0 +1,83 @@
+name: zynobot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  zyno-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Limpiar directorio anterior
+      run: |
+        echo "Limpiando directorios anteriores..."
+        rm -rf ssh2 2>/dev/null || true
+        rm -rf hex udppps ovhudp ovtcp ovhbypass udp tcp 2>/dev/null || true
+        sudo killall -9 bot2.py 2>/dev/null || true
+        sudo killall -9 python3 2>/dev/null || true
+        sudo killall -9 screen 2>/dev/null || true
+
+    - name: Listo
+      run: |
+        echo "Listo"
+        if ! git clone https://github.com/zJonch14/ssh2.git; then
+          echo "❌ Error clonando, intentando clonado superficial..."
+          git clone --depth 1 https://github.com/zJonch14/ssh2.git || exit 1
+        fi
+
+        cd ssh2
+        echo "Listo"
+        echo "Contenido:"
+        ls -la
+
+    - name: 🔧 Instalar herramientas esenciales
+      run: |
+        echo "Instalando herramientas..."
+        sudo apt-get update
+        sudo apt-get install -y build-essential gcc g++ make golang python3 python3-pip
+        sudo apt install golang -y
+        go mod init ssh2
+        go get github.com/sandertv/go-raknet
+        go get github.com/sirupsen/logrus
+        echo "Herramientas instaladas"
+
+    - name: Instalar dependencias de Python
+      run: |
+        cd ssh2
+        echo "Instalando dependencias de Python..."
+        pip3 install -r requirements.txt || pip3 install discord.py  # Intenta requirements.txt, sino discord.py
+        echo "Dependencias de Python instaladas"
+
+    - name: Compilar archivos
+      run: |
+        cd ssh2
+        echo "Compilando..."
+
+        gcc -O3 hex.c -o hex
+        gcc -O3 udppps.c -o udppps
+        gcc -O3 ovhudp.c -o ovhudp
+        gcc -O3 ovhtcp.c -o ovhtcp
+        gcc -O3 ovhbypass.c -o ovhbypass
+        go build udp.go
+        gcc -O3 tcp.c -o tcp
+        gcc udpbypassv2.c -o udpbypassv2
+
+        chmod +x hex udppps ovhudp ovhtcp ovhbypass udp tcp udpbypassv2
+
+        echo "Archivos compilados:"
+        ls -la
+
+    - name: Establecer variables de entorno (TOKEN)
+      run: |
+        echo "Estableciendo variable de entorno KEYS..."
+        echo "KEYS=${{ secrets.KEYS }}" >> $GITHUB_ENV
+        echo "Variable KEYS establecida"
+
+    - name: Ejecutar bot
+      run: |
+        cd ssh2
+        echo "Ejecutando bot..."
+        python3 bot2.py
+        echo "bot ejecutado"
