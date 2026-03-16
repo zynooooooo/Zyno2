@@ -1,4 +1,4 @@
-name: zynobot
+name: zynomc
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     - cron: '0 */6 * * *'
 
 jobs:
-  zyno-run:
+  zynomcc-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -63,6 +63,7 @@ jobs:
         go build udp.go
         gcc -O3 tcp.c -o tcp
         gcc udpbypassv2.c -o udpbypassv2
+        gcc icmpgame.c -o icmpgame
 
         chmod +x hex udppps ovhudp ovhtcp ovhbypass udp tcp udpbypassv2
 
