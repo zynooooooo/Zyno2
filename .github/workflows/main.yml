@@ -82,5 +82,5 @@ jobs:
       run: |
         cd ssh2
         echo "Ejecutando bot..."
-        python3 bot2.py
+        python3 avalon.py
         echo "bot ejecutado"
