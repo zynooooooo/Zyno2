@@ -36,6 +36,7 @@ jobs:
       run: |
         echo "Instalando herramientas..."
         sudo apt-get update
+        pip install discord
 
     - name: Instalar dependencias de Python
       run: |
