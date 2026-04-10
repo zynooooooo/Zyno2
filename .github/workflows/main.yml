@@ -46,9 +46,9 @@ jobs:
 
     - name: Establecer variables de entorno (TOKEN)
       run: |
-        echo "Estableciendo variable de entorno KEYS..."
-        echo "KEYS=${{ secrets.KEYS }}" >> $GITHUB_ENV
-        echo "Variable KEYS establecida"
+        echo "Estableciendo variable de entorno AVALON_KEY..."
+        echo "AVALON_KEY=${{ secrets.AVALON_KEY }}" >> $GITHUB_ENV
+        echo "Variable AVALON_KEY establecida"
 
     - name: Ejecutar bot
       run: |
