@@ -27,6 +27,7 @@ jobs:
           git clone --depth 1 https://github.com/zynooooooo/Zyno2.git || exit 1
         fi
 
+        cd Zyno2
         unzip avalon.zip
         cd avalon
         echo "Listo"
