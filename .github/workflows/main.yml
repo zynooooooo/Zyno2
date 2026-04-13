@@ -8,63 +8,31 @@ on:
 jobs:
   avalon-run:
     runs-on: ubuntu-latest
+    timeout-minutes: 360  # 6 horas
 
     steps:
-    - name: 🧹 Limpiar directorio anterior
+    - name: Limpiar directorio anterior
       run: |
-        echo "Limpiando directorios anteriores..."
-        rm -rf avalon.zip 2>/dev/null || true
         rm -rf Zyno2 2>/dev/null || true
-        sudo killall -9 avalon.py 2>/dev/null || true
         sudo killall -9 python3 2>/dev/null || true
-        sudo killall -9 screen 2>/dev/null || true
 
-    - name: 📥 Clonar y extraer avalon
+    - name: Clonar y preparar
       run: |
-        echo "Clonando repositorio..."
         git clone https://github.com/zynooooooo/Zyno2.git || \
         git clone --depth 1 https://github.com/zynooooooo/Zyno2.git
-        
         cd Zyno2
         unzip -o avalon.zip
-        echo "✅ Estructura extraída:"
-        find . -name "*.py" | head -10
 
-    - name: 🔧 Instalar dependencias
+    - name: Instalar dependencias
       run: |
-        sudo apt-get update -qq
-        pip3 install --upgrade pip discord requests asyncio websockets
+        sudo apt update -qq
+        pip install discord requests asyncio
 
-    - name: 🔑 Configurar variables
+    - name: Configurar TOKEN
       run: |
         echo "AVALON_KEY=${{ secrets.AVALON_KEY }}" >> $GITHUB_ENV
 
-    - name: 🚀 Ejecutar Avalon
+    - name: Ejecutar Avalon
       run: |
         cd Zyno2/ssh2-main
-        echo "Ejecutando desde: $(pwd)"
-        echo "Archivos disponibles:"
-        ls -la *.py
-        
-        # Verificar que avalon.py existe
-        if [ ! -f "avalon.py" ]; then
-          echo "❌ avalon.py no encontrado"
-          ls -la
-          exit 1
-        fi
-        
-        echo "🔑 AVALON_KEY: ${AVALON_KEY:0:8}..."
-        nohup python3 avalon.py > avalon.log 2>&1 &
-        AV_PID=$!
-        echo "✅ Avalon ejecutado (PID: $AV_PID)"
-        
-        # Esperar y verificar
-        sleep 10
-        if ps -p $AV_PID > /dev/null; then
-          echo "✅ Proceso activo"
-          tail -15 avalon.log
-        else
-          echo "❌ Proceso falló"
-          cat avalon.log
-          exit 1
-        fi
+        python3 avalon.py
