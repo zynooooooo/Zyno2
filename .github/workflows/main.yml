@@ -41,7 +41,6 @@ jobs:
 
     - name: Instalar dependencias de Python
       run: |
-        cd Zyno2
         echo "Instalando dependencias de Python..."
         echo "Dependencias de Python instaladas"
 
@@ -53,7 +52,6 @@ jobs:
 
     - name: Ejecutar bot
       run: |
-        cd Zyno2
         echo "Ejecutando bot..."
         python3 avalon.py
         echo "bot ejecutado"
