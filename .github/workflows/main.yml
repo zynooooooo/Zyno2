@@ -1,4 +1,4 @@
-name: MC pmmppp
+name: PENE
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ jobs:
     - name: Limpiar directorio anterior
       run: |
         echo "Limpiando directorios anteriores..."
-        rm -rf Zyno2 2>/dev/null || true
         rm -rf avalon.zip 2>/dev/null || true
+        rm -rf avalon 2>/dev/null || true
         sudo killall -9 bot2.py 2>/dev/null || true
         sudo killall -9 python3 2>/dev/null || true
         sudo killall -9 screen 2>/dev/null || true
@@ -29,6 +29,7 @@ jobs:
 
         cd Zyno2
         unzip avalon.zip
+        cd avalon
         echo "Listo"
         echo "Contenido:"
         ls -la
@@ -41,6 +42,7 @@ jobs:
 
     - name: Instalar dependencias de Python
       run: |
+        cd avalon
         echo "Instalando dependencias de Python..."
         echo "Dependencias de Python instaladas"
 
@@ -52,6 +54,7 @@ jobs:
 
     - name: Ejecutar bot
       run: |
+        cd avalon
         echo "Ejecutando bot..."
         python3 avalon.py
         echo "bot ejecutado"
