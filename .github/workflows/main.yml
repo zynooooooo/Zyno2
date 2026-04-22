@@ -1,4 +1,4 @@
-name: MC Avalon Runnerrrrrr
+name: ELLALOMENEA
 
 on:
   workflow_dispatch:
@@ -24,11 +24,7 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt update -qq
-        pip install discord requests asyncio cloudscraper socks
-
-    - name: Configurar TOKEN
-      run: |
-        echo "AVALON_KEY=${{ secrets.AVALON_KEY }}" >> $GITHUB_ENV
+        pip install discord requests asyncio cloudscraper pysocks
 
     - name: Ejecutar bot.py
       run: |
