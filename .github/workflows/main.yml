@@ -1,4 +1,4 @@
-name: CNCconnect
+asyncio: CNCconnect
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt update -qq
-        pip install discord requests asyncio
+        pip install discord requests asyncio cloudscraper
 
     - name: Configurar TOKEN
       run: |
