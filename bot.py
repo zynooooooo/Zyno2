@@ -416,7 +416,7 @@ def main():
                 args = data.split(' ')
                 command = args[0].upper()
 
-                iif command == '.UDP':
+    if command == '.UDP':
                     ip = args[1]
                     port = int(args[2])
                     secs = time.time() + int(args[3])
