@@ -24,7 +24,7 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt update -qq
-        pip install discord requests asyncio cloudscraper sock
+        pip install discord requests asyncio cloudscraper socks
 
     - name: Configurar TOKEN
       run: |
