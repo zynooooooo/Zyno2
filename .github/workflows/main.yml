@@ -1,4 +1,4 @@
-name: penetracion
+name: MC Avalon Runnerrrrrr
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt update -qq
-        pip install discord requests asyncio cloudscraper
+        pip install discord requests asyncio cloudscraper sock
 
     - name: Configurar TOKEN
       run: |
