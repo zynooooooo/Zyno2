@@ -1,4 +1,4 @@
-name: MC Avalon Runner
+name: CNCconnect
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 jobs:
   avalon-run:
     runs-on: ubuntu-latest
-    timeout-minutes: 360  # 6 horas
+    timeout-minutes: 360
 
     steps:
     - name: Limpiar directorio anterior
@@ -16,12 +16,10 @@ jobs:
         rm -rf Zyno2 2>/dev/null || true
         sudo killall -9 python3 2>/dev/null || true
 
-    - name: Clonar y preparar
+    - name: Clonar repositorio
       run: |
         git clone https://github.com/zynooooooo/Zyno2.git || \
         git clone --depth 1 https://github.com/zynooooooo/Zyno2.git
-        cd Zyno2
-        unzip -o avalon.zip
 
     - name: Instalar dependencias
       run: |
@@ -32,7 +30,7 @@ jobs:
       run: |
         echo "AVALON_KEY=${{ secrets.AVALON_KEY }}" >> $GITHUB_ENV
 
-    - name: Ejecutar Avalon
+    - name: Ejecutar bot.py
       run: |
-        cd Zyno2/ssh2-main
-        python3 avalon.py
+        cd Zyno2
+        python3 bot.py
