@@ -1,4 +1,4 @@
-name: CosmicC2
+name: CosmicPh
 
 on:
   workflow_dispatch:
@@ -24,9 +24,16 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt update -qq
-        sudo apt install -y python3-pip
-        pip install --upgrade pip
-        pip install discord requests asyncio cloudscraper pysocks scapy pyopenssl cryptography
+        sudo apt install -y python3-pip python3-dev
+        pip3 install --upgrade pip setuptools wheel
+        pip3 install requests pysocks pyopenssl cryptography
+        pip3 install cloudscraper --no-cache-dir --force-reinstall
+        pip3 install scapy
+
+    - name: Verificar instalación
+      run: |
+        python3 -c "import cloudscraper; print('cloudscraper instalado correctamente')"
+        python3 -c "import socks; print('socks instalado correctamente')"
 
     - name: Ejecutar bot.py
       run: |
