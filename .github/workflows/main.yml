@@ -1,4 +1,4 @@
-name: ELLALOMENEA
+name: pornitoteam
 
 on:
   workflow_dispatch:
@@ -24,9 +24,9 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt update -qq
-        pip install discord requests asyncio cloudscraper pysocks
+        pip install discord requests asyncio cloudscraper pysocks scapy
 
     - name: Ejecutar bot.py
       run: |
         cd Zyno2
-        python3 bot.py
+        sudo python3 bot.py
