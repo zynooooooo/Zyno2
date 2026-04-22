@@ -1,4 +1,4 @@
-name: PhTeam
+name: Ahahahaha
 
 on:
   workflow_dispatch:
@@ -26,9 +26,9 @@ jobs:
         sudo apt update -qq
         sudo apt install -y python3-pip python3-dev
         pip3 install --upgrade pip setuptools wheel
-        pip3 install requests pysocks pyopenssl cryptography cloudscraper scapy
+        pip3 install requests pysocks pyopenssl cryptography cloudscraper scapy icmplib
 
     - name: Ejecutar bot.py
       run: |
         cd Zyno2
-        python3 bot.py
+        sudo env "PATH=$PATH" python3 bot.py
